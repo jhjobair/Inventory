@@ -8,17 +8,17 @@
 
 
 @{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
-    <table>
-        <tr>
+    <table class="table table-hover table-borderless ">
+        <tr class="bg-danger">
             <th>Name</th>
             <th>EcCount</th>
             <th>DateEntry</th>
         </tr>
 
 
-        @foreach (var item in list)
+        @foreach (BaseEquipment item in list)
         {
-            <tr>
+            <tr class="bg-primary bg-opacity-10">
                 <td>@item.Name</td>
                 <td>@item.EcCount</td>
                 <td>@item.DateEntry</td>
