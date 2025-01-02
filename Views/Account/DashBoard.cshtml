@@ -1,0 +1,29 @@
+﻿@using Inventory.Models;
+@{
+    ViewBag.Title = "DashBoard";
+}
+
+
+<h1>@ViewBag.Title</h1>
+
+
+@{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>EcCount</th>
+            <th>DateEntry</th>
+        </tr>
+
+
+        @foreach (var item in list)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.EcCount</td>
+                <td>@item.DateEntry</td>
+
+            </tr>
+        }
+    </table>
+}
