@@ -3,27 +3,40 @@
     ViewBag.Title = "DashBoard";
 }
 
+<style>
+    table, table tr, table td , tr th{
+        border: 1px solid #4800ff;
+    }
+    table tr:hover {
+        background:#00ffff;
+    }
+     
+</style>
 
 <h1>@ViewBag.Title</h1>
 
 
+
 @{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
-    <table class="table table-hover table-borderless ">
-        <tr class="bg-danger">
-            <th>Name</th>
-            <th>EcCount</th>
-            <th>DateEntry</th>
-        </tr>
-
-
-        @foreach (BaseEquipment item in list)
-        {
-            <tr class="bg-primary bg-opacity-10">
-                <td>@item.Name</td>
-                <td>@item.EcCount</td>
-                <td>@item.DateEntry</td>
-
+    <div id="tblBorder" style="height:400px; width:500px;overflow:auto;">
+        <table style="width:100%;">
+            <tr style="position:sticky; top:0;background:#00ff21;">
+                <th>Name</th>
+                <th>EcCount</th>
+                <th>DateEntry</th>
             </tr>
-        }
-    </table>
+
+
+            @foreach (BaseEquipment item in list)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.EcCount</td>
+                    <td>@item.DateEntry</td>
+
+                </tr>
+            }
+        </table>
+    </div>
+   
 }

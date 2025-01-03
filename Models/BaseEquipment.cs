@@ -22,23 +22,17 @@ namespace Inventory.Models
         {
             List<BaseEquipment> list = new List<BaseEquipment>();
 
-            BaseEquipment baseEquipment = new BaseEquipment();
-            baseEquipment.Name = "Laptop";
-            baseEquipment.EcCount = 4;
-            baseEquipment.DateEntry = DateTime.Now.Date;
-            list.Add(baseEquipment);
+            for(int i=0; i < 50; i++)
+            {
+                BaseEquipment baseEquipment = new BaseEquipment();
+                baseEquipment.Name = "Laptop_"+i.ToString();
+                baseEquipment.EcCount = 4+i;
+                baseEquipment.DateEntry = DateTime.Now.Date;
+                list.Add(baseEquipment);
+            }
+            
 
-            baseEquipment = new BaseEquipment();
-            baseEquipment.Name = "Mouse";
-            baseEquipment.EcCount = 5;
-            baseEquipment.DateEntry = DateTime.Now.Date;
-            list.Add(baseEquipment);
-
-            baseEquipment = new BaseEquipment();
-            baseEquipment.Name = "Keyboard";
-            baseEquipment.EcCount = 5;
-            baseEquipment.DateEntry = DateTime.Now.Date;
-            list.Add(baseEquipment);
+         
 
             return list;
         } 
