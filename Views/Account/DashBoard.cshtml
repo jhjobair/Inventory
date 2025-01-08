@@ -16,45 +16,57 @@
 <form action="/Account/DashBoard" method="post">
 
     <input type="text" id="txtName" name="txtName" placeholder="Equipment Name" />
-    <input type="submit" value="Search" name="btnSearch"/>
-    <input type="submit" value="Clear" name="btnClear"  />
+    <input type="submit" value="Search" name="btnSearch" />
+    <input type="submit" value="Clear" name="btnClear" />
 
     @{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
         <div id="tblBorder" style="height:400px; width:500px;overflow:auto;">
-                <table style="width:100%;">
-                    <tr style="position:sticky; top:0;background:#00ff21;">
-                        <th>Name</th>
-                        <th>EcCount</th>
-                        <th>DateEntry</th>
-                    </tr>
-                    @foreach (BaseEquipment item in list)
-                    {
-                        @*if (ViewBag.txtName != "")
-            {
-                if (item.Name == ViewBag.txtName)
+            <table style="width:100%;">
+                <tr style="position:sticky; top:0;background:#00ff21;">
+                    <th>Name</th>
+                    <th>EcCount</th>
+                    <th>DateEntry</th>
+                </tr>
+                @foreach (BaseEquipment item in list)
                 {
+                    @*if (ViewBag.txtName != "")
+                        {
+                            if (item.Name == ViewBag.txtName)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.EcCount</td>
+                                    <td>@item.DateEntry</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.EcCount</td>
+                                <td>@item.DateEntry</td>
+                            </tr>
+                        }*@
                     <tr>
                         <td>@item.Name</td>
                         <td>@item.EcCount</td>
                         <td>@item.DateEntry</td>
                     </tr>
                 }
-            }
-            else
-            {
-                <tr>
-                    <td>@item.Name</td>
-                    <td>@item.EcCount</td>
-                    <td>@item.DateEntry</td>
-                </tr>
-            }*@
-                        <tr>
-                            <td>@item.Name</td>
-                            <td>@item.EcCount</td>
-                            <td>@item.DateEntry</td>
-                        </tr>
-                    }
-                </table>
+            </table>
         </div>
     }
+</form>
+<hr />
+<h1 style="margin-top:100px">Customer List</h1>
+<form action="/Account/DashBoard" method="post">
+    <input type="text" id="txtCusName" name="txtCusName" placeholder="Customer Name" />
+    <input type="submit" value="Search" name="butnSearch" />
+    <input type="submit" value="Clear" name="butnClear" />
+
+    <div style="  border: 1px solid #4800ff; height: 400px; width: 500px; overflow: auto; position: relative; ">
+
+    </div>
+
 </form>
