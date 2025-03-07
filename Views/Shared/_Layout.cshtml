@@ -34,14 +34,19 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 </ul>
             </div>
-            <div style="position: absolute; right: 5px; bottom: 1px; height: 70%; width: 150px; color: #adb5bd ">
+            <div style="position: absolute; right: 5px; bottom: 1px; height: 70%; width: 200px; color: #adb5bd ">
                 @{
                     if (Session["User"] != null)
                     {
                         <span>User: @Session["User"]</span>
                     }
                 }
+                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post))
+                {
+                    <input type="submit" name="btnLogout" value="LogOut" />
+                }
             </div>
+              
         </div>
     </nav>
     <div id="LeftBar" style=" width: 200px; bottom: 0px; top: 56px; position: absolute; background: #224d1f;">

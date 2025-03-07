@@ -55,10 +55,23 @@ namespace Inventory.Controllers
                     return RedirectToAction("DashBoard", "Account");
 
                 }
-
-
+                else
+                {
+                    ViewBag.loginMsg = "Username / gmail / passward is incorrect";
+                    //return RedirectToAction("Login");
+                }
             }
             return View();
+        }
+        [HttpPost]
+        public ActionResult LogOut()
+        {
+            if (Session["User"] != null)
+            {
+                Session.Remove("User");
+                return RedirectToAction("Login");
+            }
+            return RedirectToAction("Login");
         }
     }
 }

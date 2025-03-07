@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -69,6 +70,7 @@
 </head>
 
 <body>
+
     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
         <div class="form-container">
@@ -98,6 +100,10 @@
         </div>
 
         <script>
+            var loginmsg = '@Html.Raw(ViewBag.loginMsg)';
+            if (loginmsg && loginmsg !== '') {
+                alert(loginmsg);
+            }
             document.getElementById("loginForm").addEventListener("submit", function (event) {
                 event.preventDefault();
                 let isValid = true;
