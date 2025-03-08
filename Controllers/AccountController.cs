@@ -14,7 +14,7 @@ namespace Inventory.Controllers
         // GET: Account
         public ActionResult DashBoard()
         {
-           if(Session["User"] != null)
+            if (Session["User"] != null)
             {
                 List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
                 ViewBag.list = list;
@@ -23,7 +23,7 @@ namespace Inventory.Controllers
             }
             else
             {
-                return RedirectToAction("Login","Account");
+                return RedirectToAction("Login", "Account");
             }
         }
         [HttpPost]
@@ -31,7 +31,7 @@ namespace Inventory.Controllers
         {
             List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
             ViewBag.list = list;
-            ViewBag.txtName = "";
+            ViewBag.txtName = "";   
             if (btnSearch == "Search")
             {
                  
@@ -45,11 +45,11 @@ namespace Inventory.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(string btnSubmit, string fname, string gmail, int pass)
+        public ActionResult Login(string btnSubmit,BaseAccount @base)
         { 
             if(btnSubmit == "Login")
             {
-                if(fname=="jobair"&& gmail=="jobair@gmail.com" && pass == 123456)
+                if(@base.Username=="jobair"&& @base.Email=="jobair@gmail.com" && @base.Passward == 123456)
                 {
                     Session["User"] = "jobair";
                     return RedirectToAction("DashBoard", "Account");

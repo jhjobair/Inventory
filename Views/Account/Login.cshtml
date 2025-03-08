@@ -1,83 +1,20 @@
-﻿﻿
+﻿@model Inventory.Models.BaseAccount
 @{
-    Layout = null;
+    ViewBag.Title = "Login";
 }
 
 <!DOCTYPE html>
-<html lang="en">
-
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <style>
-        input[type=text], input[type=email], input[type=password] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-
-        input:hover {
-            background: #ffffff;
-        }
-
-        input[type=submit] {
-            width: 100%;
-            background-color: #4CAF50;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-            input[type=submit]:hover {
-                background-color: #45a049;
-            }
-
-        .error {
-            color: red;
-            font-size: 14px;
-        }
-
-        div {
-            border-radius: 5px;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
-
-        .form-container {
-            height: 600px;
-            width: 500px;
-            margin: auto;
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            border: 1px solid rgb(62, 56, 125);
-        }
-
-        body {
-            background: #003830;
-        }
-    </style>
 </head>
-
 <body>
-
     @using (Html.BeginForm("Login", "Account", FormMethod.Post))
     {
-        <div class="form-container">
-            <form action="DashBoard.cshtml" id="loginForm" method="post">
+        @*@Html.AntiForgeryToken()*@
 
         <div class="form-group">
-            @Html.LabelFor(m => m.user)
+            @Html.LabelFor(m => m.Username)
             @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
             @Html.ValidationMessageFor(m => m.Username)
         </div>
@@ -86,59 +23,14 @@
             @Html.PasswordFor(m => m.Email, new { @class = "form-control", required = "required" })
             @Html.ValidationMessageFor(m => m.Email)
 
-            </form>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Passward)
+            @Html.PasswordFor(m => m.Passward, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Passward)
         </div>
 
-        <script>
-            var loginmsg = '@Html.Raw(ViewBag.loginMsg)';
-            if (loginmsg && loginmsg !== '') {
-                alert(loginmsg);
-            }
-            document.getElementById("loginForm").addEventListener("submit", function (event) {
-                event.preventDefault();
-                let isValid = true;
-
-
-                const FirstName = document.getElementById("fname").value.trim();
-                const LastName = document.getElementById("lname").value.trim();
-                const Gmail = document.getElementById("gmail").value.trim();
-                const Password = document.getElementById("pass").value.trim();
-
-
-                document.getElementById("usernameError").textContent = "";
-                document.getElementById("gmailError").textContent = "";
-                document.getElementById("passwordError").textContent = "";
-
-
-                if (FirstName === "") {
-                    document.getElementById("usernameError").textContent = "First name is required.";
-                    isValid = false;
-                }
-
-                const gmailRegex = /^[a-zA-Z0-9._%+-]+@@gmail\.com$/;
-                if (Gmail === "") {
-                    document.getElementById("gmailError").textContent = "Gmail is required.";
-                    isValid = false;
-                } else if (!gmailRegex.test(Gmail)) {
-                    document.getElementById("gmailError").textContent = "Please enter a valid Gmail address (e.g., example@gmail.com).";
-                    isValid = false;
-                }
-
-
-                if (Password === "") {
-                    document.getElementById("passwordError").textContent = "Password is required.";
-                    isValid = false;
-                }
-
-
-                if (isValid) {
-                    window.location.href = "Login/DashBoard";
-                }
-            });
-        </script>
-
+        <button type="submit" class="btn btn-primary">Login</button>
     }
-
 </body>
-
 </html>
