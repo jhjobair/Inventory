@@ -76,25 +76,15 @@
         <div class="form-container">
             <form action="DashBoard.cshtml" id="loginForm" method="post">
 
-                <label for="fname">First Name:</label>
-                <input type="text" id="fname" name="fname" placeholder="Your First Name...">
-                <div id="usernameError" class="error"></div>
-
-
-                <label for="lname">Last Name:</label>
-                <input type="text" id="lname" name="lname" placeholder="Your Last Name...">
-
-
-                <label for="gmail">Gmail:</label>
-                <input type="email" id="gmail" name="gmail" placeholder="Your Gmail...">
-                <div id="gmailError" class="error"></div>
-
-
-                <label for="pass">Password:</label>
-                <input type="password" id="pass" name="pass" placeholder="Your Password...">
-                <div id="passwordError" class="error"></div>
-
-                <input type="submit" value="Login" name="btnSubmit">
+        <div class="form-group">
+            @Html.LabelFor(m => m.user)
+            @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Username)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email)
+            @Html.PasswordFor(m => m.Email, new { @class = "form-control", required = "required" })
+            @Html.ValidationMessageFor(m => m.Email)
 
             </form>
         </div>
