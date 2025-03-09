@@ -42,7 +42,8 @@ namespace Inventory.Controllers
         }
         public ActionResult Login()
         {
-            return View();
+            BaseAccount baseAccount = new BaseAccount();
+            return View(baseAccount);
         }
         [HttpPost]
         public ActionResult Login(string btnSubmit,BaseAccount @base)
@@ -53,15 +54,14 @@ namespace Inventory.Controllers
                 {
                     Session["User"] = "jobair";
                     return RedirectToAction("DashBoard", "Account");
-
                 }
                 else
                 {
                     ViewBag.loginMsg = "Username / gmail / passward is incorrect";
-                    //return RedirectToAction("Login");
                 }
             }
-            return View();
+            BaseAccount baseAccount = new BaseAccount();
+            return View(baseAccount); ;
         }
         [HttpPost]
         public ActionResult LogOut()
