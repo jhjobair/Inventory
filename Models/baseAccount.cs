@@ -11,5 +11,14 @@ namespace Inventory.Models
         public string Username { get; set; }
         public string Email { get; set; }
         public int Passward { get; set; }
+
+        public bool VarifyLogin()
+        {
+            if (this.Username == "jobair" && this.Email == "jobair@gmail.com" && this.Passward == 123456)
+            {
+              return true;
+            }
+            return false;
+        }
     }
 }

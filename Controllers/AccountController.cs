@@ -47,12 +47,13 @@ namespace Inventory.Controllers
         }
         [HttpPost]
         public ActionResult Login(string btnSubmit,BaseAccount @base)
-        { 
+        {
+            bool varifyStatus = @base.VarifyLogin();
             if(btnSubmit == "Login")
             {
-                if(@base.Username=="jobair"&& @base.Email=="jobair@gmail.com" && @base.Passward == 123456)
+                if(varifyStatus)
                 {
-                    Session["User"] = "jobair";
+                    Session["User"] = @base.Username;
                     return RedirectToAction("DashBoard", "Account");
                 }
                 else
