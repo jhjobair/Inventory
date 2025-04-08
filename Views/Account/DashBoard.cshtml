@@ -12,7 +12,23 @@
             background: #00ffff;
         }
 </style>
+<script>
+    function ShowEquipmentEntryPanel() {
+        $("#partial_entry").dialog({
+            resizable: false,
+            height: 500,
+            width: 1000,
+            modal: true
+        });
+        return false;
+    }
+$(document).ready(function(){
+   
+});
+</script>
+
 <h1>@ViewBag.Title</h1>
+<input type="button" id="btnAddNew" name="btnAddNew" onclick="return ShowEquipmentEntryPanel()" value="Add New"/>
 <form action="/Account/DashBoard" method="post">
 
     <input type="text" id="txtName" name="txtName" placeholder="Equipment Name" />
@@ -70,3 +86,4 @@
     </div>
 
 </form>
+@Html.Partial("~/Views/Account/_PartialEquipment.cshtml")

@@ -184,6 +184,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\DashBoard.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\_PartialEquipment.cshtml" />
+    <Content Include="Views\Common\_PartialGlobalMsg.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

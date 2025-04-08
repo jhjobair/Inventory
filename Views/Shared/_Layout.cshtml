@@ -4,8 +4,28 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - @System.Configuration.ConfigurationManager.AppSettings["ApplicationName"].ToString()</title>
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <!-- Make sure you have these in your head section -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
+
+    @*<script>
+        var Globalmsg = "Success ! Logged in as @Session["User"]";
+        $(document).ready(function () {
+            if (Globalmsg != "") {
+                $("#spnGlobalPartialMsg").html(Globalmsg);
+                $("#dbGlobalPartialMsg").dialog({
+                    resizable: false,
+                    modal: true
+                })
+            }
+           
+        });
+    </script>*@
 </head>
 <body>
     <style>
@@ -40,13 +60,17 @@
                     {
                         <span>User: @Session["User"]</span>
                     }
+                    if (Session["User"] != null)
+                    {
+                        using (Html.BeginForm("LogOut", "Account", FormMethod.Post, new { style = "position: fixed; top: 15px; right: 20px;" }))
+                        {
+                            <input type="submit" name="btnLogout" value="LogOut" style="background: rgb(15 40 64); color: #adb5bd " />
+                        }
+                    }
                 }
-                @using (Html.BeginForm("LogOut", "Account", FormMethod.Post))
-                {
-                    <input type="submit" name="btnLogout" value="LogOut" />
-                }
+
             </div>
-              
+
         </div>
     </nav>
     <div id="LeftBar" style=" width: 200px; bottom: 0px; top: 56px; position: absolute; background: #224d1f;">
@@ -68,10 +92,9 @@
             </footer>
         </div>
     </div>
+  
+   @Html.Partial("~/Views/Common/_PartialGlobalMsg.cshtml");
 
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+   @RenderSection("scripts", required: false)
 </body>
 </html>

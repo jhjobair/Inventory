@@ -7,13 +7,31 @@
 <html>
 <head>
     <title>Login</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
+    <script>
+        var Globalmsg = '@ViewBag.LoginMsg';
+        $(document).ready(function () {
+            if (Globalmsg != "") {
+                $("#spnGlobalPartialMsg").html(Globalmsg);
+                $("#dbGlobalPartialMsg").dialog({
+                    resizable: false,
+                    modal: true
+                })
+            }
+
+        });
+    </script>
 </head>
 
 <body>
     @{
-        if (ViewBag.loginMsg != null)
+        if (ViewBag.ErrorMsg != null)
         {
-            <h4 style="color:red">@ViewBag.loginMsg</h4>
+            <h4 style="color:red">@ViewBag.ErrorMsg</h4>
         }
     }
     @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "min-vh-100 justify-content-center align-items-center" }))
@@ -39,5 +57,7 @@
 
         <button type="submit" name="btnSubmit" value="Login" class="btn btn-primary">Login</button>
     }
+    @Html.Partial("~/Views/Common/_PartialGlobalMsg.cshtml");
+
 </body>
 </html>

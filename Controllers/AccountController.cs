@@ -48,21 +48,24 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult Login(string btnSubmit,BaseAccount @base)
         {
+            string LoginMsg = "";
             bool varifyStatus = @base.VarifyLogin();
             if(btnSubmit == "Login")
             {
                 if(varifyStatus)
                 {
                     Session["User"] = @base.Username;
-                    return RedirectToAction("DashBoard", "Account");
+                    LoginMsg = "Login Success";
+                    //return RedirectToAction("DashBoard", "Account");
                 }
                 else
                 {
-                    ViewBag.loginMsg = "Username / gmail / passward is incorrect";
+                    ViewBag.ErrorMsg = "Username / gmail / passward is incorrect";
                 }
             }
             BaseAccount baseAccount = new BaseAccount();
-            return View(baseAccount); ;
+            @ViewBag.LoginMsg = LoginMsg;
+            return View(baseAccount); 
         }
         [HttpPost]
         public ActionResult LogOut()
