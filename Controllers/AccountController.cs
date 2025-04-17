@@ -29,6 +29,29 @@ namespace Inventory.Controllers
         [HttpPost]
         public ActionResult DashBoard(FormCollection frm, string btnSearch)
         {
+            if(btnSearch== "Add Equipment")
+            {
+            BaseEquipment baseEquipment =new BaseEquipment();
+                baseEquipment.Name = frm["ddlEquipmentName"].ToString();
+                baseEquipment.EcCount = Convert.ToInt16(frm["txtQuantity"].ToString());
+                DateTime parsedDate;
+                if (DateTime.TryParse(frm["txtEntryDate"], out parsedDate) && parsedDate >= (DateTime)System.Data.SqlTypes.SqlDateTime.MinValue)
+                {
+                    baseEquipment.DateEntry = parsedDate;
+                }
+                else
+                {
+                    baseEquipment.DateEntry = DateTime.Now; // or use a nullable field if the DB allows it
+                }
+                int result = baseEquipment.SaveEquipment();
+                if (result > 0) 
+                {
+                    ViewBag.Operation = "Save Successfully😍";
+                }
+
+            }
+
+
             List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
             ViewBag.list = list;
             ViewBag.txtName = "";   
@@ -60,11 +83,11 @@ namespace Inventory.Controllers
                 }
                 else
                 {
-                    ViewBag.ErrorMsg = "Username / gmail / passward is incorrect";
+                   LoginMsg = "Failed, Username / gmail / passward is incorrect";
                 }
             }
             BaseAccount baseAccount = new BaseAccount();
-            @ViewBag.LoginMsg = LoginMsg;
+            ViewBag.LoginMsg = LoginMsg;
             return View(baseAccount); 
         }
         [HttpPost]

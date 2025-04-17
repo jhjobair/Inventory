@@ -1,21 +1,45 @@
-﻿<div id="partial_entry" style="display:none">
-    <div class="row">   
-        <div class="col col-sm-2">
-            Select Equipment
+﻿
+<script>
+    $(document).ready(function () {
+        $("#txtEntryDate").datepicker();
+    })
+</script>
+
+<div id="partial_entry" style="display:none">
+    @using (Html.BeginForm("Dashboard", "Account", FormMethod.Post))
+    {
+        <div class="row">
+            <div class="col col-sm-2">
+                Select Equipment
+            </div>
+            <div class="col col-sm-4">
+                <select name="ddlEquipmentName">
+                    <option value="0">--Select--</option>
+                    <option value="leptop 1">leptop 1</option>
+                    <option value="leptop 2">leptop 2</option>
+                    <option value="leptop 3">leptop 3</option>
+                    <option value="leptop 4">leptop 4</option>
+                    <option value="leptop 5">leptop 5</option>
+                    <option value="leptop 6">leptop 6</option>
+                </select>
+            </div>
+            <div class="col col-sm-2">
+                Quantity
+            </div>
+            <div class="col col-sm-4">
+                <input type="text" name="txtQuantity" id="txtQuantity" />
+            </div>
         </div>
-        <div class="col col-sm-4">
-            <select>
-                <option value="0">--Select--</option>
-                <option value="1">leptop 1</option>
-                <option value="2">leptop 2</option>
-                <option value="3">leptop 3</option>
-            </select>
+        <div class="row">
+            <div class="col col-sm-2">
+                Entry Date
+            </div>
+            <div class="col col-sm-4">
+                <input type="text" name="txtEntryDate" id="txtEntryDate" />
+            </div>
         </div>
-        <div class="col col-sm-2">
-            <input type="text" name="txtQuantity" id="txtQuantity" />
+        <div class="row">
+            <input type="submit" name="btnSearch" id="btnPartialSubmit" value="Add Equipment" />
         </div>
+    }
     </div>
-    <div class="row">
-        <input type="submit" name="btnSubmit" id="btnSubmit" />
-    </div>
-</div>

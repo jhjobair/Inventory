@@ -6,15 +6,14 @@
     <title>@ViewBag.Title - @System.Configuration.ConfigurationManager.AppSettings["ApplicationName"].ToString()</title>
     <link rel="stylesheet" href="/resources/demos/style.css">
     <!-- Make sure you have these in your head section -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <link href="~/Content/Jquery_ui/jquery-ui.min.css" rel="stylesheet" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
-    <script src="https://code.jquery.com/ui/1.14.1/jquery-ui.min.js" integrity="sha256-AlTido85uXPlSyyaZNsjJXeCs07eSv3r43kyCVc8ChI=" crossorigin="anonymous"></script>
-
-    @*<script>
-        var Globalmsg = "Success ! Logged in as @Session["User"]";
+<script src="~/Scripts/JqueryUi/jquery-ui.min.js"></script>
+    <script>
+        var Globalmsg = "@ViewBag.Operation";
         $(document).ready(function () {
             if (Globalmsg != "") {
                 $("#spnGlobalPartialMsg").html(Globalmsg);
@@ -25,7 +24,7 @@
             }
            
         });
-    </script>*@
+    </script>
 </head>
 <body>
     <style>

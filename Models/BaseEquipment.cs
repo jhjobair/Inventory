@@ -1,8 +1,12 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
+using System.Data;
 using System.Linq;
 using System.Web;
+using Microsoft.Ajax.Utilities;
 
 namespace Inventory.Models
 {
@@ -22,16 +26,58 @@ namespace Inventory.Models
         public static List<BaseEquipment> ListEquipmentData()
         {
             List<BaseEquipment> list = new List<BaseEquipment>();
-            Random random = new Random();
-            for (int i = 0; i < 50; i++)
+            //DataTable datatbl = new DataTable();
+
+            string conString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
+
+            SqlConnection sqlConnection = new SqlConnection(conString);
+            sqlConnection.Open();
+            SqlCommand cmd = sqlConnection.CreateCommand();
+            cmd.CommandText = "spOst_LstEquipment";
+            cmd.Parameters.Clear();
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
+            cmd.CommandTimeout = 0;
+
+           SqlDataReader mrd = cmd.ExecuteReader();
+            if(mrd.HasRows)
             {
-                BaseEquipment baseEquipment = new BaseEquipment();
-                baseEquipment.Name = "Laptop_" + i.ToString();
-                baseEquipment.EcCount = random.Next(1, 50);
-                baseEquipment.DateEntry = DateTime.Now.Date;
-                list.Add(baseEquipment);
+                while (mrd.Read()) 
+                {
+                    BaseEquipment obj = new BaseEquipment();
+                    obj.Name = mrd["EquipmentName"].ToString();
+                    obj.EcCount = Convert.ToInt16(mrd["Quantity"].ToString());
+                    obj.DateEntry = Convert.ToDateTime(mrd["EntryDate"].ToString());
+                    list.Add(obj);
+                }
+
             }
+            cmd.Dispose();
+            sqlConnection.Close();
             return list;
         }
+
+        public int SaveEquipment()
+        {
+
+            string conString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
+
+            SqlConnection sqlConnection = new SqlConnection(conString);
+            sqlConnection.Open();
+            SqlCommand cmd =new SqlCommand();
+            cmd.CommandText = "dbo.spOst_InsetEqup";
+            cmd.Connection = sqlConnection;
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add(new SqlParameter("@Name", this.Name));
+            cmd.Parameters.Add(new SqlParameter("@EcCount", this.EcCount));
+            cmd.Parameters.Add(new SqlParameter("@DateEntry", this.DateEntry));
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 0;
+
+          int result = cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            sqlConnection.Close();
+            return result;
+        }
+
     }
 }
