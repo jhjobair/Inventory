@@ -1,4 +1,5 @@
 ﻿@using Inventory.Models;
+@using System.Data;
 @{
     ViewBag.Title = "DashBoard";
 }
@@ -11,6 +12,26 @@
         table tr:hover {
             background: #00ffff;
         }
+
+    .container #btnAddNew {
+        
+        -ms-transform: translate(-50%, -50%);
+        background-color: #f1f1f1;
+        color: black;
+        font-size: 20px;
+        padding: 16px 30px;
+        border: none;
+       
+        border-radius: 5px;
+        text-align: center;
+    }
+
+        .container #btnAddNew:hover {
+            background-color: #4acad0;
+            color: black;
+        }
+
+
 </style>
 <script>
     function ShowEquipmentEntryPanel() {
@@ -22,30 +43,34 @@
         });
         return false;
     }
-$(document).ready(function(){
-   
-});
+    $(document).ready(function () {
+
+    });
 </script>
 
 <h1>@ViewBag.Title</h1>
-<input type="button" id="btnAddNew" name="btnAddNew" onclick="return ShowEquipmentEntryPanel()" value="Add New"/>
+
 <form action="/Account/DashBoard" method="post">
 
-    <input type="text" id="txtName" name="txtName" placeholder="Equipment Name" />
-    <input type="submit" value="Search" name="btnSearch" />
-    <input type="submit" value="Clear" name="btnClear" />
-
-    @{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
-        <div id="tblBorder" style="height:400px; width:500px;overflow:auto;">
-            <table style="width:100%;">
-                <tr style="position:sticky; top:0;background:#00ff21;">
-                    <th>Name</th>
-                    <th>EcCount</th>
-                    <th>DateEntry</th>
-                </tr>
-                @foreach (BaseEquipment item in list)
-                {
-                    @*if (ViewBag.txtName != "")
+  
+    <div class="row">
+        <div class="col col-sm-6">
+            <input type="button" id="btnAddNew" name="btnAddNew" onclick="return ShowEquipmentEntryPanel()" value="Add New" />
+            @{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
+                <div style="height:400px;width:500px;overflow:auto;border:1px solid steelblue;">
+                    <h4>Equipment List</h4>
+                    <input type="text" id="txtName" name="txtName" placeholder="Equipment Name" />
+                    <input type="submit" value="Search" name="btnSearch" />
+                    <input type="submit" value="Clear" name="btnClear" />
+                    <table style="width:100%;">
+                        <tr style="background: #00b7ff96;">
+                            <th>Name</th>
+                            <th>EcCount</th>
+                            <th>DateEntry</th>
+                        </tr>
+                        @foreach (BaseEquipment item in list)
+                        {
+                            @*if (ViewBag.txtName != "")
                         {
                             if (item.Name == ViewBag.txtName)
                             {
@@ -64,26 +89,59 @@ $(document).ready(function(){
                                 <td>@item.DateEntry</td>
                             </tr>
                         }*@
-                    <tr>
-                        <td>@item.Name</td>
-                        <td>@item.EcCount</td>
-                        <td>@item.DateEntry</td>
-                    </tr>
-                }
-            </table>
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.EcCount</td>
+                                <td>@item.DateEntry</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+
+            }
         </div>
-    }
+        <div class="col col-sm-6">
+            <input type="button" id="btnAddNew" name="btnEquipAssign" onclick="return ShowEquipmentEntryPanel()" value="Add New" />
+
+            <div id="tblBorder" style="height:400px;overflow:auto;border:1px solid steelblue;">
+                <h4>Customer List</h4>
+                <table style="width:100%">
+                    <tr style="background: #00b7ff96;">
+                        <th>CustomerID</th>
+                        <th>Customer Name</th>
+                        <th>Customer Mobile</th>
+                        <th>Equipment Count</th>
+                    </tr>
+                    @{
+                        System.Data.DataTable dataTable = (System.Data.DataTable)ViewBag.dtCustomerEquip;
+                        var pdata = (from p in dataTable.AsEnumerable()
+                                     select new
+                                     {
+                                         CustomerID = p.Field<Int32>("CustomerID"),
+                                         CustomerName = p.Field<string>("CustomerName"),
+                                         CustomerMobile = p.Field<string>("CustomerMobile"),
+                                         EquipCount = p.Field<Int32>("EquipCount"),
+                                     }).ToList();
+                        foreach (var obj in pdata)
+                        {
+
+                            <tr>
+                                <td>@obj.CustomerID </td>
+                                <td>@obj.CustomerName</td>
+                                <td>@obj.CustomerMobile</td>
+                                <td>@obj.EquipCount</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+ 
+
+
+
 </form>
 <hr />
-<h1 style="margin-top:100px">Customer List</h1>
-<form action="/Account/DashBoard" method="post">
-    <input type="text" id="txtCusName" name="txtCusName" placeholder="Customer Name" />
-    <input type="submit" value="Search" name="butnSearch" />
-    <input type="submit" value="Clear" name="butnClear" />
-
-    <div style="  border: 1px solid #4800ff; height: 400px; width: 500px; overflow: auto; position: relative; ">
-
-    </div>
-
-</form>
 @Html.Partial("~/Views/Account/_PartialEquipment.cshtml")
+

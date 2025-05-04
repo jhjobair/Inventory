@@ -12,6 +12,7 @@ namespace Inventory.Models
 {
     public class BaseEquipment
     {
+        public int EquipmentID { get; set; }
         public string Name { get; set; }
         public int EcCount { get; set; }
         public DateTime DateEntry { get; set; }
@@ -44,6 +45,7 @@ namespace Inventory.Models
                 while (mrd.Read()) 
                 {
                     BaseEquipment obj = new BaseEquipment();
+                    obj.EquipmentID = Convert.ToInt16(mrd["EquipmentID"].ToString());
                     obj.Name = mrd["EquipmentName"].ToString();
                     obj.EcCount = Convert.ToInt16(mrd["Quantity"].ToString());
                     obj.DateEntry = Convert.ToDateTime(mrd["EntryDate"].ToString());
@@ -67,7 +69,7 @@ namespace Inventory.Models
             cmd.CommandText = "dbo.spOst_InsetEqup";
             cmd.Connection = sqlConnection;
             cmd.Parameters.Clear();
-            cmd.Parameters.Add(new SqlParameter("@Name", this.Name));
+            cmd.Parameters.Add(new SqlParameter("@Name", this.Name)); 
             cmd.Parameters.Add(new SqlParameter("@EcCount", this.EcCount));
             cmd.Parameters.Add(new SqlParameter("@DateEntry", this.DateEntry));
             cmd.CommandType = CommandType.StoredProcedure;

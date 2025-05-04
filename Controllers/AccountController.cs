@@ -1,6 +1,7 @@
 ﻿using Inventory.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Security.Policy;
 using System.Web;
@@ -17,6 +18,8 @@ namespace Inventory.Controllers
             if (Session["User"] != null)
             {
                 List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
+                DataTable dtCustomerEquip = BaseCustomer.ListCustomerEquipment();
+                ViewBag.dtCustomerEquip = dtCustomerEquip;
                 ViewBag.list = list;
                 ViewBag.txtName = "";
                 return View();
@@ -54,6 +57,8 @@ namespace Inventory.Controllers
 
             List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
             ViewBag.list = list;
+            DataTable dtCustomerEquip = BaseCustomer.ListCustomerEquipment();
+            ViewBag.dtCustomerEquip = dtCustomerEquip;
             ViewBag.txtName = "";   
             if (btnSearch == "Search")
             {
@@ -99,6 +104,27 @@ namespace Inventory.Controllers
                 return RedirectToAction("Login");
             }
             return RedirectToAction("Login");
+        }
+        [HttpGet]
+        public ActionResult LstEquipment()
+        {
+            List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
+            var plist = (from p in list
+                         select new
+                         {
+                             EquipmentID = p.EquipmentID,
+                             Name = p.Name,
+                             EcCount = p.EcCount.ToString(),
+                             DateEntry = p.DateEntry.ToString(),
+                         }).ToList();
+            return Json(plist,JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public ActionResult LstCustomer()
+        {
+            List<BaseCustomer> list = BaseCustomer.ListCustomer();
+           
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }
