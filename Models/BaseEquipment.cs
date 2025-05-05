@@ -15,6 +15,7 @@ namespace Inventory.Models
         public int EquipmentID { get; set; }
         public string Name { get; set; }
         public int EcCount { get; set; }
+        public int Stock { get; set; }
         public DateTime DateEntry { get; set; }
 
         public List<BaseEquipment> ListEquipment { get; set; }
@@ -48,6 +49,7 @@ namespace Inventory.Models
                     obj.EquipmentID = Convert.ToInt16(mrd["EquipmentID"].ToString());
                     obj.Name = mrd["EquipmentName"].ToString();
                     obj.EcCount = Convert.ToInt16(mrd["Quantity"].ToString());
+                    obj.Stock = Convert.ToInt16(mrd["stock"].ToString());
                     obj.DateEntry = Convert.ToDateTime(mrd["EntryDate"].ToString());
                     list.Add(obj);
                 }

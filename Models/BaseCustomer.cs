@@ -81,9 +81,30 @@ namespace Inventory.Models
             return datatbl;
         }
 
-      
+        public static int EquipmentAssign(int customerID, int EquipmentID, int EquipmentQuantity)
+        {
 
-        
+            string conString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
+
+            SqlConnection sqlConnection = new SqlConnection(conString);
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "spOst_InsEquipAssignment";
+            cmd.Connection = sqlConnection;
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add(new SqlParameter("@CustomerID",customerID));
+            cmd.Parameters.Add(new SqlParameter("@EquipmentID", EquipmentID ));
+            cmd.Parameters.Add(new SqlParameter("@EquipCount", EquipmentQuantity));
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 0;
+
+            int result = cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            sqlConnection.Close();
+            return result;
+        }
+
+
 
     }
 }

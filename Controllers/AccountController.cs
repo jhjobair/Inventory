@@ -54,6 +54,15 @@ namespace Inventory.Controllers
 
             }
 
+            if(btnSearch== "Add Assignment")
+            {
+                var customerId = Convert.ToInt32(frm["ddlPartialCustomer"].ToString()) ;
+                var EquipmentId = Convert.ToInt32(frm["ddlEquipmentName"].ToString()) ;
+                var Quantity = Convert.ToInt32(frm["txtQuantityAssign"].ToString());
+                BaseCustomer.EquipmentAssign(customerId,EquipmentId,Quantity);
+                ViewBag.Operation = "Save Successfully😍";
+            }
+
 
             List<BaseEquipment> list = BaseEquipment.ListEquipmentData();
             ViewBag.list = list;

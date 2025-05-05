@@ -14,14 +14,12 @@
         }
 
     .container #btnAddNew {
-        
         -ms-transform: translate(-50%, -50%);
         background-color: #f1f1f1;
         color: black;
         font-size: 20px;
         padding: 16px 30px;
         border: none;
-       
         border-radius: 5px;
         text-align: center;
     }
@@ -30,12 +28,19 @@
             background-color: #4acad0;
             color: black;
         }
-
-
 </style>
 <script>
     function ShowEquipmentEntryPanel() {
         $("#partial_entry").dialog({
+            resizable: false,
+            height: 500,
+            width: 1000,
+            modal: true
+        });
+        return false;
+    }
+    function ShowEquipmentAssign() {
+        $("#partial_assign").dialog({
             resizable: false,
             height: 500,
             width: 1000,
@@ -52,7 +57,7 @@
 
 <form action="/Account/DashBoard" method="post">
 
-  
+
     <div class="row">
         <div class="col col-sm-6">
             <input type="button" id="btnAddNew" name="btnAddNew" onclick="return ShowEquipmentEntryPanel()" value="Add New" />
@@ -65,33 +70,35 @@
                     <table style="width:100%;">
                         <tr style="background: #00b7ff96;">
                             <th>Name</th>
-                            <th>EcCount</th>
+                            <th>Equipment Count</th>
+                            <th>Stock</th>
                             <th>DateEntry</th>
                         </tr>
                         @foreach (BaseEquipment item in list)
                         {
                             @*if (ViewBag.txtName != "")
-                        {
-                            if (item.Name == ViewBag.txtName)
-                            {
-                                <tr>
-                                    <td>@item.Name</td>
-                                    <td>@item.EcCount</td>
-                                    <td>@item.DateEntry</td>
-                                </tr>
-                            }
-                        }
-                        else
-                        {
+                                {
+                                    if (item.Name == ViewBag.txtName)
+                                    {
+                                        <tr>
+                                            <td>@item.Name</td>
+                                            <td>@item.EcCount</td>
+                                            <td>@item.DateEntry</td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td>@item.Name</td>
+                                        <td>@item.EcCount</td>
+                                        <td>@item.DateEntry</td>
+                                    </tr>
+                                }*@
                             <tr>
                                 <td>@item.Name</td>
                                 <td>@item.EcCount</td>
-                                <td>@item.DateEntry</td>
-                            </tr>
-                        }*@
-                            <tr>
-                                <td>@item.Name</td>
-                                <td>@item.EcCount</td>
+                                <td>@item.Stock</td>
                                 <td>@item.DateEntry</td>
                             </tr>
                         }
@@ -101,13 +108,13 @@
             }
         </div>
         <div class="col col-sm-6">
-            <input type="button" id="btnAddNew" name="btnEquipAssign" onclick="return ShowEquipmentEntryPanel()" value="Add New" />
+            <input type="button" id="btnAddNew" name="btnEquipAssign" onclick="return ShowEquipmentAssign()" value="Add New" />
 
             <div id="tblBorder" style="height:400px;overflow:auto;border:1px solid steelblue;">
                 <h4>Customer List</h4>
                 <table style="width:100%">
                     <tr style="background: #00b7ff96;">
-                        <th>CustomerID</th>
+                        @*<th>CustomerID</th>*@
                         <th>Customer Name</th>
                         <th>Customer Mobile</th>
                         <th>Equipment Count</th>
@@ -117,7 +124,7 @@
                         var pdata = (from p in dataTable.AsEnumerable()
                                      select new
                                      {
-                                         CustomerID = p.Field<Int32>("CustomerID"),
+                                         //CustomerID = p.Field<Int32>("CustomerID"),
                                          CustomerName = p.Field<string>("CustomerName"),
                                          CustomerMobile = p.Field<string>("CustomerMobile"),
                                          EquipCount = p.Field<Int32>("EquipCount"),
@@ -126,7 +133,7 @@
                         {
 
                             <tr>
-                                <td>@obj.CustomerID </td>
+                                @*<td>@obj.CustomerID </td>*@
                                 <td>@obj.CustomerName</td>
                                 <td>@obj.CustomerMobile</td>
                                 <td>@obj.EquipCount</td>
@@ -137,11 +144,12 @@
             </div>
         </div>
     </div>
- 
+
 
 
 
 </form>
 <hr />
-@Html.Partial("~/Views/Account/_PartialEquipment.cshtml")
+@Html.Partial("~/Views/Account/_PartialEquipmentEntry.cshtml")
+@Html.Partial("~/Views/Account/_PartialEquipmentAssign.cshtml")
 
