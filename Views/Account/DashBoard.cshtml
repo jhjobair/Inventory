@@ -53,14 +53,19 @@
     });
 </script>
 
-<h1>@ViewBag.Title</h1>
+<h1 >@ViewBag.Title</h1>
 
 <form action="/Account/DashBoard" method="post">
 
 
     <div class="row">
         <div class="col col-sm-6">
-            <input type="button" id="btnAddNew" name="btnAddNew" onclick="return ShowEquipmentEntryPanel()" value="Add New" />
+            @{
+                if (Session["Role"].ToString() == "Admin")
+                {
+                    <input type="button" id="btnAddNew" name="btnAddNew" onclick="return ShowEquipmentEntryPanel()" value="Add New" />
+                }
+            }
             @{ List<BaseEquipment> list = (List<BaseEquipment>)ViewBag.list;
                 <div style="height:400px;width:500px;overflow:auto;border:1px solid steelblue;">
                     <h4>Equipment List</h4>
@@ -77,24 +82,24 @@
                         @foreach (BaseEquipment item in list)
                         {
                             @*if (ViewBag.txtName != "")
-                                {
-                                    if (item.Name == ViewBag.txtName)
-                                    {
-                                        <tr>
-                                            <td>@item.Name</td>
-                                            <td>@item.EcCount</td>
-                                            <td>@item.DateEntry</td>
-                                        </tr>
-                                    }
-                                }
-                                else
-                                {
-                                    <tr>
-                                        <td>@item.Name</td>
-                                        <td>@item.EcCount</td>
-                                        <td>@item.DateEntry</td>
-                                    </tr>
-                                }*@
+                        {
+                            if (item.Name == ViewBag.txtName)
+                            {
+                                <tr>
+                                    <td>@item.Name</td>
+                                    <td>@item.EcCount</td>
+                                    <td>@item.DateEntry</td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td>@item.Name</td>
+                                <td>@item.EcCount</td>
+                                <td>@item.DateEntry</td>
+                            </tr>
+                        }*@
                             <tr>
                                 <td>@item.Name</td>
                                 <td>@item.EcCount</td>
@@ -118,6 +123,7 @@
                         <th>Customer Name</th>
                         <th>Customer Mobile</th>
                         <th>Equipment Count</th>
+                        <th>Equipment Name</th>
                     </tr>
                     @{
                         System.Data.DataTable dataTable = (System.Data.DataTable)ViewBag.dtCustomerEquip;
@@ -128,6 +134,7 @@
                                          CustomerName = p.Field<string>("CustomerName"),
                                          CustomerMobile = p.Field<string>("CustomerMobile"),
                                          EquipCount = p.Field<Int32>("EquipCount"),
+                                         EquipName = p.Field<string>("EquipmentName")
                                      }).ToList();
                         foreach (var obj in pdata)
                         {
@@ -137,6 +144,7 @@
                                 <td>@obj.CustomerName</td>
                                 <td>@obj.CustomerMobile</td>
                                 <td>@obj.EquipCount</td>
+                                <td>@obj.EquipName</td>
                             </tr>
                         }
                     }
@@ -150,6 +158,7 @@
 
 </form>
 <hr />
-@Html.Partial("~/Views/Account/_PartialEquipmentEntry.cshtml")
-@Html.Partial("~/Views/Account/_PartialEquipmentAssign.cshtml")
+        @Html.Partial("~/Views/Account/_PartialEquipmentEntry.cshtml")
+ @Html.Partial("~/Views/Account/_PartialEquipmentAssign.cshtml")
+
 

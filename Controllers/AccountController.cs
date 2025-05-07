@@ -92,6 +92,7 @@ namespace Inventory.Controllers
                 if(varifyStatus)
                 {
                     Session["User"] = @base.Username;
+                    Session["Role"] = @base.Role;
                     LoginMsg = "Login Success";
                     //return RedirectToAction("DashBoard", "Account");
                 }

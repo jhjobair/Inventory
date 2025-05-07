@@ -95,6 +95,7 @@ namespace Inventory.Models
             cmd.Parameters.Add(new SqlParameter("@CustomerID",customerID));
             cmd.Parameters.Add(new SqlParameter("@EquipmentID", EquipmentID ));
             cmd.Parameters.Add(new SqlParameter("@EquipCount", EquipmentQuantity));
+
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandTimeout = 0;
 

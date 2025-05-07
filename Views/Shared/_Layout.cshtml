@@ -75,6 +75,22 @@
                 }
 
             </div>
+            <div style="position: absolute; right: 500px; bottom: 1px; height: 70%; width: 150PX; color: #4662b7 ">
+                @{
+                    if (Session["Role"] != null)
+                    {
+                        if (Session["Role"].ToString() == "Admin")
+                        {
+                            <p style="background-color: black;  border: solid cadetblue;">This is Admin Panel</p>
+                        }
+                        else
+                        {
+                            <p style="background-color: black;  border: solid cadetblue;">This is User Panel</p>
+                        }
+                    }
+                }
+
+            </div>
 
         </div>
     </nav>
