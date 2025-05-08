@@ -13,6 +13,8 @@ namespace Inventory.Models
         public int CustomerID { get; set; }
         public string CustomerName { get; set; }
         public string CustomerNumber { get; set; }
+        public string Makeby { get; set; }
+
 
         public static List<BaseCustomer> ListCustomer()
         {
@@ -81,7 +83,7 @@ namespace Inventory.Models
             return datatbl;
         }
 
-        public static int EquipmentAssign(int customerID, int EquipmentID, int EquipmentQuantity)
+        public static int EquipmentAssign(int customerID, int EquipmentID, int EquipmentQuantity, string MakeBy)
         {
 
             string conString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
@@ -95,6 +97,7 @@ namespace Inventory.Models
             cmd.Parameters.Add(new SqlParameter("@CustomerID",customerID));
             cmd.Parameters.Add(new SqlParameter("@EquipmentID", EquipmentID ));
             cmd.Parameters.Add(new SqlParameter("@EquipCount", EquipmentQuantity));
+            cmd.Parameters.Add(new SqlParameter("@MakeBy", MakeBy ));
 
             cmd.CommandType = CommandType.StoredProcedure;
             cmd.CommandTimeout = 0;
@@ -105,7 +108,27 @@ namespace Inventory.Models
             return result;
         }
 
+        public static int NewCustomer(string customerName , string customerMobile)
+        {
 
+            string conString = ConfigurationManager.ConnectionStrings["conString"].ConnectionString;
+
+            SqlConnection sqlConnection = new SqlConnection(conString);
+            sqlConnection.Open();
+            SqlCommand cmd = new SqlCommand();
+            cmd.CommandText = "spOST_CreateCustomer";
+            cmd.Connection = sqlConnection;
+            cmd.Parameters.Clear();
+            cmd.Parameters.Add(new SqlParameter("@CustomerName", customerName));
+            cmd.Parameters.Add(new SqlParameter("@CustomerMobile", customerMobile));
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.CommandTimeout = 0;
+
+            int result = cmd.ExecuteNonQuery();
+            cmd.Dispose();
+            sqlConnection.Close();
+            return result;
+        }
 
     }
 }

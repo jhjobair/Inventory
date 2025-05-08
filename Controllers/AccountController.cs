@@ -59,7 +59,8 @@ namespace Inventory.Controllers
                 var customerId = Convert.ToInt32(frm["ddlPartialCustomer"].ToString()) ;
                 var EquipmentId = Convert.ToInt32(frm["ddlEquipmentName"].ToString()) ;
                 var Quantity = Convert.ToInt32(frm["txtQuantityAssign"].ToString());
-                BaseCustomer.EquipmentAssign(customerId,EquipmentId,Quantity);
+                var MakeBy = Session["User"].ToString();
+                BaseCustomer.EquipmentAssign(customerId,EquipmentId,Quantity, MakeBy);
                 ViewBag.Operation = "Save Successfully😍";
             }
 
@@ -105,12 +106,31 @@ namespace Inventory.Controllers
             ViewBag.LoginMsg = LoginMsg;
             return View(baseAccount); 
         }
+        public ActionResult addNewCutomer()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult addNewCutomer(FormCollection frm, string btnAddNew)
+        {
+            if (btnAddNew == "btnAddNewCustomer")
+            {
+                var CustomerName = frm["nameInput"].ToString();
+                var Mobile = frm["numberInput"].ToString();
+             
+                BaseCustomer.NewCustomer(CustomerName, Mobile);
+                ViewBag.Operation = "Save Successfully😍";
+                return RedirectToAction("DashBoard", "Account");
+            }
+            return View();
+        }
         [HttpPost]
         public ActionResult LogOut()
         {
             if (Session["User"] != null)
             {
                 Session.Remove("User");
+                Session.Remove("Role");
                 return RedirectToAction("Login");
             }
             return RedirectToAction("Login");

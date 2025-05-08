@@ -1,0 +1,24 @@
+﻿
+@{
+    ViewBag.Title = "addNewCutomer";
+}
+
+<h2>addNewCutomer</h2>
+
+@using (Html.BeginForm("addNewCutomer", "Account", FormMethod.Post, new { @class = "min-vh-100 justify-content-center align-items-center" }))
+{
+
+    @*@Html.AntiForgeryToken()*@
+
+    <div class="form-group">
+        <label for="nameInput">Username</label>
+        @Html.TextBox("nameInput", null, new { @class = "form-control",  placeholder = "Enter username", required = "required" })
+    </div>
+
+    <div class="form-group">
+        <label for="numberInput">Mobile Number</label>
+        @Html.TextBox("numberInput", null, new { @class = "form-control", placeholder = "Enter mobile number", required = "required", type = "tel" })
+    </div>
+
+    <button type="submit"value="btnAddNewCustomer" name="btnAddNew" class="btn btn-primary">Add Customer</button>
+}

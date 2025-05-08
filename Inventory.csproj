@@ -196,6 +196,7 @@
     <Content Include="Views\Account\_PartialEquipmentEntry.cshtml" />
     <Content Include="Views\Common\_PartialGlobalMsg.cshtml" />
     <Content Include="Views\Account\_PartialEquipmentAssign.cshtml" />
+    <Content Include="Views\Account\addNewCutomer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

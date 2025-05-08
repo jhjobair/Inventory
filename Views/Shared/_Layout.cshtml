@@ -100,11 +100,16 @@
                 <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-               
+
                 @{
                     if (Session["User"] != null)
                     {
                         <li style=" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; ">@Html.ActionLink("DashBoard", "DashBoard", "Account", new { area = "" }, new { @class = "nav-link" })</li>
+                    }
+                    if (Session["Role"] != null)
+                    {
+                        <li style=" text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black; ">@Html.ActionLink("Add Customer", "addNewCutomer", "Account", new { area = "" }, new { @class = "nav-link" })</li>
+
                     }
                 }
             </ul>
